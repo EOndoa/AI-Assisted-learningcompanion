@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Achievements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+        <span class="navbar-brand">My Achievements</span>
+        <a href="/dashboard" class="btn btn-outline-light btn-sm">Dashboard</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold">My Badges</h2>
+    <p class="text-muted">Achievements earned through your learning journey.</p>
+
+    <div th:if="${#lists.isEmpty(achievements)}" class="alert alert-info">
+        You have not earned any badges yet.
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4" th:each="achievement : ${achievements}">
+            <div class="card shadow p-4 text-center h-100">
+
+                <h1>🏆</h1>
+
+                <h4 th:text="${achievement.badgeName}">Badge Name</h4>
+
+                <p class="text-muted" th:text="${achievement.description}">
+                    Badge description
+                </p>
+
+                <p class="small text-secondary">
+                    Awarded on:
+                    <span th:text="${#temporals.format(achievement.awardedAt, 'dd MMMM yyyy')}"></span>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

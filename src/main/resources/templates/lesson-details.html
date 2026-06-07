@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title th:text="${lesson.title}">Lesson Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+        .lesson-container {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .lesson-header {
+            background: linear-gradient(135deg, #0d6efd, #3b82f6);
+            color: white;
+            padding: 30px;
+        }
+
+        .lesson-content {
+            font-size: 18px;
+            line-height: 1.9;
+            color: #374151;
+            white-space: pre-line;
+            max-height: none;
+            overflow: visible;
+        }
+
+        .lesson-meta {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .action-buttons {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 25px;
+        }
+
+        .badge-learning {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .summary-box {
+            display: none;
+            white-space: pre-line;
+            line-height: 1.7;
+            border-radius: 15px;
+        }
+    </style>
+
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary shadow-sm">
+
+    <div class="container">
+
+        <span class="navbar-brand fw-bold">
+            AI Learning Companion
+        </span>
+
+        <a th:href="@{'/courses/' + ${courseId} + '/lessons'}"
+           class="btn btn-outline-light btn-sm">
+            ← Back to Course
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container mt-5 mb-5">
+
+    <div class="card shadow lesson-container">
+
+        <div class="lesson-header">
+
+            <h1 class="fw-bold mb-2"
+                th:text="${lesson.title}">
+                Lesson Title
+            </h1>
+
+            <div class="d-flex gap-2 flex-wrap">
+
+                <span class="badge-learning">
+                    📚 Learning Module
+                </span>
+
+                <span class="badge-learning">
+                    🧠 Quiz Available
+                </span>
+
+                <span class="badge-learning">
+                    🤖 AI Summary
+                </span>
+
+                <span class="badge-learning">
+                    ⭐ Complete to Unlock Progress
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="p-5">
+
+            <div class="lesson-meta">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>Course:</strong>
+                        <span th:text="${lesson.course.title}">
+                            Course Name
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Assessment:</strong>
+                        5 Quiz Questions
+                    </div>
+
+                    <div class="col-md-4">
+                        <strong>Pass Mark:</strong>
+                        80%
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="lesson-content mt-4">
+
+                <div th:if="${lesson.content != null and !#strings.isEmpty(lesson.content)}"
+                     th:text="${lesson.content}">
+                    Lesson content goes here.
+                </div>
+
+                <div th:if="${lesson.content == null or #strings.isEmpty(lesson.content)}"
+                     class="alert alert-warning">
+                    No readable lesson content is available for this lesson.
+                    The uploaded PDF may be scanned/image-based or empty.
+                </div>
+
+            </div>
+
+            <div class="action-buttons mt-5">
+
+                <div class="d-flex flex-wrap gap-3">
+
+                    <a th:if="${previousLesson != null}"
+                       th:href="@{'/lesson/' + ${previousLesson.id}}"
+                       class="btn btn-outline-primary">
+                        ← Previous Lesson
+                    </a>
+
+                    <button type="button"
+                            class="btn btn-info"
+                            onclick="summarizeLesson()">
+                        🤖 Summarize Lesson
+                    </button>
+
+                    <a th:href="@{'/lesson/' + ${lesson.id} + '/quiz'}"
+                       class="btn btn-warning">
+                        🧠 Take Lesson Quiz
+                    </a>
+
+                    <a th:href="@{'/lessons/complete/' + ${lesson.id}}"
+                       class="btn btn-success">
+                        ✓ Mark Lesson Completed
+                    </a>
+
+                    <a th:if="${nextLesson != null}"
+                       th:href="@{'/lesson/' + ${nextLesson.id}}"
+                       class="btn btn-primary">
+                        Next Lesson →
+                    </a>
+
+                </div>
+
+                <div id="summaryBox"
+                     class="alert alert-info mt-4 summary-box">
+                </div>
+
+                <div class="alert alert-light border mt-4">
+
+                    <strong>Learning Recommendation:</strong>
+
+                    Before proceeding to the next lesson,
+                    complete the lesson quiz and achieve at least
+                    <strong>80%</strong> to demonstrate mastery of the topic.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    async function summarizeLesson() {
+
+        const lessonId = [[${lesson.id}]];
+        const summaryBox = document.getElementById("summaryBox");
+
+        summaryBox.style.display = "block";
+        summaryBox.innerText = "Generating AI lesson summary...";
+
+        try {
+            const response = await fetch('/api/lesson-summary/' + lessonId);
+
+            if (!response.ok) {
+                summaryBox.innerText = "Server error while generating summary.";
+                return;
+            }
+
+            const data = await response.json();
+
+            summaryBox.innerText = data.response || "No summary generated.";
+
+        } catch (error) {
+            summaryBox.innerText = "Unable to generate summary. Please check the backend.";
+            console.error(error);
+        }
+    }
+</script>
+
+</body>
+</html>
