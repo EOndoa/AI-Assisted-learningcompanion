@@ -26,6 +26,9 @@ The application is deployed on a Hostinger VPS and is accessible at:
 The deployment currently uses a public IP address and HTTP. A production domain,
 HTTPS certificate, and reverse proxy should be configured before broader public
 use.
+The test User: 
+test@learning.com
+password:TestUser1
 
 ## Project Objectives
 
