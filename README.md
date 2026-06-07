@@ -503,13 +503,9 @@ git push origin feature/your-feature
 ## Author
 
 Developed by **Etienne Ondoa** ([EOndoa](https://github.com/EOndoa)).
-
+Matricule: ICTU20233886
 - Scrum Master and Lead Developer
-- Language Technology Consultant
-- IT Coordinator, CABTAL - Cameroon Association for Bible Translation and
-  Literacy
-- Certified Language Technology Consultant
-- Software Engineering student, ICT University
+- Software Engineering student, Final year Level 4 and 2 ICT University
 
 ## License
 
