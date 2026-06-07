@@ -1,16 +1,19 @@
-# AI-Assisted Learning Companion
+# AI-Assisted Learning Companion Web Application
 
 [![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.6-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![OpenRouter](https://img.shields.io/badge/AI-OpenRouter-6467F2)](https://openrouter.ai/)
 
-AI-Assisted Learning Companion is a web-based learning management platform that
-combines structured course delivery with AI-powered academic support. Students
-can enroll in courses, complete lessons and quizzes, monitor their progress,
-earn achievements, and download verifiable course certificates. Administrators
-can manage the learning catalog, students, assessments, reports, and AI usage
-from a dedicated dashboard.
+AI-Assisted Learning Companion is a full-stack educational web application that
+combines structured online course delivery with AI-powered academic support.
+It provides responsive browser interfaces for students and administrators,
+server-rendered with Thymeleaf and backed by a Spring Boot application.
+
+Students can enroll in courses, complete lessons and quizzes, monitor their
+progress, earn achievements, and download verifiable course certificates.
+Administrators can manage the learning catalog, students, assessments, reports,
+and AI usage from a dedicated web dashboard.
 
 ## Key Features
 
@@ -40,15 +43,46 @@ from a dedicated dashboard.
 
 | Layer | Technology |
 | --- | --- |
+| Web interface | HTML5, CSS3, Thymeleaf |
+| Presentation | Server-rendered pages and Spring MVC controllers |
 | Backend | Java 21, Spring Boot 4 |
-| Web | Spring Web MVC, Thymeleaf |
 | Persistence | Spring Data JPA, Hibernate |
 | Database | MySQL |
 | AI integration | OpenRouter Chat Completions API |
 | PDF generation | Apache PDFBox |
-| Security | Spring Security and HTTP sessions |
+| Authentication | HTTP sessions with Spring Security integration |
 | Build | Maven |
-| Frontend | HTML, CSS, Thymeleaf templates |
+
+## Web Application Architecture
+
+The application follows a layered Model-View-Controller architecture:
+
+```text
+Web browser
+    |
+    | HTTP requests and form submissions
+    v
+Spring MVC controllers
+    |
+    | Business operations
+    v
+Service layer --------> OpenRouter API
+    |
+    | Data access
+    v
+Spring Data repositories
+    |
+    v
+MySQL database
+
+Controllers -> Thymeleaf templates -> HTML responses -> Web browser
+```
+
+- **Views** provide the student and administrator web interfaces.
+- **Controllers** handle navigation, forms, sessions, and API requests.
+- **Services** contain learning, assessment, certificate, and AI logic.
+- **Repositories** persist application data through Spring Data JPA.
+- **External services** provide AI responses and email delivery.
 
 ## Project Structure
 
@@ -148,7 +182,10 @@ Alternatively, with Maven installed:
 mvn spring-boot:run
 ```
 
-Open [http://localhost:8080](http://localhost:8080) in your browser.
+Open [http://localhost:8080](http://localhost:8080) in a modern web browser.
+
+The root URL redirects to the login page. Register a student account or create
+the first administrator using the instructions below.
 
 ## Creating the First Administrator
 
@@ -210,6 +247,25 @@ The generated JAR will be available in the `target/` directory.
 - Mail settings contain placeholders and must be configured before email
   delivery can be used.
 
+## Web Deployment
+
+The application can be packaged as an executable JAR and hosted on a Java 21
+compatible web server or cloud platform:
+
+```bash
+./mvnw clean package
+java -jar target/AI-Assisted-learningcompanion-0.0.1-SNAPSHOT.jar
+```
+
+For a hosted environment:
+
+- Provision a MySQL database and set `DB_URL`, `DB_USERNAME`, and `DB_PASSWORD`.
+- Set `OPENROUTER_API_KEY` securely in the hosting platform.
+- Configure mail credentials through environment variables or a production
+  configuration profile.
+- Place the application behind HTTPS and a reverse proxy.
+- Use a managed secret store rather than checked-in configuration values.
+
 ## Security Status
 
 This repository is currently suitable for development and academic
@@ -239,4 +295,3 @@ git push origin feature/your-feature
 ## Author
 
 Developed by [EOndoa](https://github.com/EOndoa).
-
