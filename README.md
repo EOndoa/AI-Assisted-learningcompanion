@@ -4,6 +4,8 @@
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.6-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![OpenRouter](https://img.shields.io/badge/AI-OpenRouter-6467F2)](https://openrouter.ai/)
+[![Deployment](https://img.shields.io/badge/Deployment-Hostinger_VPS-673DE6)](http://187.77.183.24:8080)
+[![Status](https://img.shields.io/badge/Status-Live-success)](http://187.77.183.24:8080)
 
 AI-Assisted Learning Companion is a full-stack educational web application that
 combines structured online course delivery with AI-powered academic support.
@@ -15,7 +17,21 @@ progress, earn achievements, and download verifiable course certificates.
 Administrators can manage the learning catalog, students, assessments, reports,
 and AI usage from a dedicated web dashboard.
 
+## Live Demo
+
+The application is deployed on a Hostinger VPS and is accessible at:
+
+**[http://187.77.183.24:8080](http://187.77.183.24:8080)**
+
+The deployment currently uses a public IP address and HTTP. A production domain,
+HTTPS certificate, and reverse proxy should be configured before broader public
+use.
+
 ## Project Objectives
+
+The main objective is to develop an AI-powered educational web platform that
+enhances learning through intelligent tutoring, structured course management,
+automated assessment, and personalized academic support.
 
 - Provide a centralized online learning environment.
 - Support student self-learning through structured academic content.
@@ -139,6 +155,8 @@ Student access granted
 | PDF generation | Apache PDFBox |
 | Authentication | HTTP sessions with Spring Security integration |
 | Build | Maven |
+| Version control | Git and GitHub |
+| Deployment | Hostinger VPS, Ubuntu Linux |
 
 ## Web Application Architecture
 
@@ -352,8 +370,9 @@ The generated JAR will be available in the `target/` directory.
 
 ## Web Deployment
 
-The application can be packaged as an executable JAR and hosted on a Java 21
-compatible web server or cloud platform:
+The application is currently deployed as an executable JAR on a Hostinger VPS
+running Ubuntu Linux, Java 21, and MySQL 8. The same deployment approach can be
+used on another Java-compatible server or cloud platform:
 
 ```bash
 ./mvnw clean package
@@ -369,6 +388,22 @@ For a hosted environment:
 - Place the application behind HTTPS and a reverse proxy.
 - Use a managed secret store rather than checked-in configuration values.
 
+### Current deployment
+
+| Component | Environment |
+| --- | --- |
+| Hosting | Hostinger VPS |
+| Operating system | Ubuntu Linux |
+| Runtime | Java 21 |
+| Database | MySQL 8 |
+| Application | Spring Boot executable JAR |
+| AI provider | OpenRouter |
+| Public endpoint | `http://187.77.183.24:8080` |
+
+The public login page was verified as reachable on June 7, 2026. This confirms
+availability at that time, but does not replace uptime monitoring or a
+production security review.
+
 ## Security Status
 
 This repository is currently suitable for development and academic
@@ -383,14 +418,58 @@ demonstration. Before deploying it publicly:
 - Use database migrations such as Flyway or Liquibase in production.
 - Set `spring.jpa.hibernate.ddl-auto` to `validate` or `none` in production.
 
+## Agile Scrum Methodology
+
+The project was managed using an Agile Scrum approach, organizing development
+around prioritized requirements, iterative implementation, review, and
+deployment.
+
+### Scrum roles
+
+**Scrum Master and Lead Developer: Etienne Ondoa**
+
+- Sprint planning and task coordination
+- Development oversight
+- Risk and issue management
+- Integration and deployment management
+
+The Product Owner role covers requirements definition and prioritization, while
+the development role covers implementation, testing, integration, and
+deployment.
+
+### Iterative workflow
+
+```text
+Product requirements
+        |
+        v
+Prioritized backlog
+        |
+        v
+Sprint planning
+        |
+        v
+Design and implementation
+        |
+        v
+Testing and review
+        |
+        v
+Deployment and feedback
+```
+
 ## Future Improvements
 
 - AI-generated personalized study plans
 - Course and lesson recommendation engine
 - Discussion forums and instructor feedback
+- Assignment submission and peer collaboration
 - Video-based learning content
-- Dedicated mobile application
+- Android and iOS applications
+- Progressive Web Application support
+- Real-time notifications and in-app messaging
 - Expanded analytics dashboards and reports
+- Predictive learning insights
 - OCR support for scanned PDF documents
 - Automated email verification and password recovery
 - Broader automated test coverage
@@ -405,6 +484,8 @@ This project demonstrates:
 - AI-assisted learning and automated assessment generation
 - PDF content extraction and certificate generation
 - Learning management, progress tracking, and gamification
+- Agile Scrum project management
+- Cloud deployment on an Ubuntu VPS
 - Practical Git and GitHub-based software development
 
 ## Contributing
@@ -423,13 +504,16 @@ git push origin feature/your-feature
 
 Developed by **Etienne Ondoa** ([EOndoa](https://github.com/EOndoa)).
 
+- Scrum Master and Lead Developer
 - Language Technology Consultant
 - IT Coordinator, CABTAL - Cameroon Association for Bible Translation and
   Literacy
-- Bachelor of Science in Software Engineering, ICT University
+- Certified Language Technology Consultant
+- Software Engineering student, ICT University
 
 ## License
 
-This project was developed for academic and educational purposes. No
-open-source license has been added yet; all rights are reserved unless a
-license file is provided.
+This project was developed for academic, educational, and research purposes.
+No open-source license has been added yet.
+
+Copyright (c) 2026 Etienne Ondoa. All rights reserved.
